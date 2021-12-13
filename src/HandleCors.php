@@ -32,14 +32,13 @@ class HandleCors
      */
     public function handle($request, Closure $next)
     {
-        ld('SHOULD RUN CORS', $this->shouldRun($request));
+        // Define CORS service here instead of the constructor in order to allow updates to CORS config to be effective.
+        $this->cors = resolve(CorsService::class);
+
         // Check if we're dealing with CORS and if we should handle it
         if (! $this->shouldRun($request)) {
             return $next($request);
         }
-
-        // Define CORS service here instead of the constructor in order to allow updates to CORS config to be effective.
-        $this->cors = resolve(CorsService::class);
 
         // For Preflight, return the Preflight response
         if ($this->cors->isPreflightRequest($request)) {
