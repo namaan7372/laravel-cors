@@ -86,7 +86,7 @@ ld($this->cors);
     {
         // Define CORS service here instead of the constructor in order to allow updates to CORS config to be effective.
         $this->cors = $this->container->make(CorsService::class);
-        
+
         if ($this->shouldRun($event->request) && $this->container->make(Kernel::class)->hasMiddleware(static::class)) {
             $this->addHeaders($event->request, $event->response);
         }
