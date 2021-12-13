@@ -18,9 +18,8 @@ class HandleCors
     /** @var \Illuminate\Contracts\Container\Container $container */
     protected $container;
 
-    public function __construct(CorsService $cors, Container $container)
+    public function __construct(Container $container)
     {
-        $this->cors = $cors;
         $this->container = $container;
     }
 
@@ -37,6 +36,9 @@ class HandleCors
         if (! $this->shouldRun($request)) {
             return $next($request);
         }
+ld('asdf');
+        // Define CORS service here instead of the constructor in order to allow updates to CORS config to be effective.
+        $this->cors = resolve(CorsService::class);
 
         // For Preflight, return the Preflight response
         if ($this->cors->isPreflightRequest($request)) {
