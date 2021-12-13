@@ -33,7 +33,7 @@ class HandleCors
     public function handle($request, Closure $next)
     {
         // Define CORS service here instead of the constructor in order to allow updates to CORS config to be effective.
-        $this->cors = resolve(CorsService::class);
+        $this->cors = $this->container->make(CorsService::class);
 ld($this->cors);
         // Check if we're dealing with CORS and if we should handle it
         if (! $this->shouldRun($request)) {
