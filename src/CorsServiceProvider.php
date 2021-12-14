@@ -20,7 +20,9 @@ class CorsServiceProvider extends BaseServiceProvider
         $this->mergeConfigFrom($this->configPath(), 'cors');
 
         $this->app->singleton(CorsService::class, function ($app) {
-            return new CorsService($this->corsOptions(), $app);
+            $options = $this->corsOptions();
+            ld('service options', $options);
+            return new CorsService($options, $app);
         });
     }
 

@@ -34,7 +34,7 @@ class HandleCors
     {
         // Define CORS service here instead of the constructor in order to allow updates to CORS config to be effective.
         $this->cors = $this->container->make(CorsService::class);
-ld($this->cors);
+ld('handle', $this->cors);
         // Check if we're dealing with CORS and if we should handle it
         if (! $this->shouldRun($request)) {
             return $next($request);
@@ -86,6 +86,7 @@ ld($this->cors);
     {
         // Define CORS service here instead of the constructor in order to allow updates to CORS config to be effective.
         $this->cors = $this->container->make(CorsService::class);
+        ld('onRequestHandled', $this->cors);
 
         if ($this->shouldRun($event->request) && $this->container->make(Kernel::class)->hasMiddleware(static::class)) {
             $this->addHeaders($event->request, $event->response);
